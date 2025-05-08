@@ -61,6 +61,11 @@ ROLLBACK;
 --     CONSTRAINT 제약조건이름 PRIMARY KEY(컬럼명)
 -- );
 
+-- 데이터 타입
+-- 문자열 : CHAR(2000까지 지원), VARCHAR2(4000), CLOB(128TB)
+-- 숫자 : NUMBER(자리수, 소수점개수) -> 최대 38, FLOAT(128)
+-- 날짜 시간 : DATE(날짜/시간), TIMESTAMP(소수점까지 저장 가능 최대 9자리)
+-- https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/datatype-limits.html
 
 
 
