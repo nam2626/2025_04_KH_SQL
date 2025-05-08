@@ -1,0 +1,18 @@
+-- 사용자 생성
+--          C##사용자명             암호
+CREATE USER C##SCOTT IDENTIFIED BY 123456;
+-- 권한 부여
+GRANT RESOURCE, CONNECT TO C##SCOTT;
+-- 저장소 사용량 부여
+ALTER USER C##SCOTT DEFAULT TABLESPACE 
+USERS QUOTA UNLIMITED ON USERS;
+
+-- 학생 테이블
+-- 학번, 이름, 학과명, 평점
+CREATE TABLE STUDENT(
+    SNO CHAR(8),
+    SNAME VARCHAR2(50),
+    MNAME VARCHAR2(50),
+    SCORE NUMBER(3,2)
+
+);
