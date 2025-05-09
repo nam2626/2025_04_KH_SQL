@@ -67,5 +67,82 @@ ROLLBACK;
 -- 날짜 시간 : DATE(날짜/시간), TIMESTAMP(소수점까지 저장 가능 최대 9자리)
 -- https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/datatype-limits.html
 
+-- 복습문제
+-- COURSE 테이블 생성
+-- 과목코드, 과목명, 학점
+CREATE TABLE COURSE(
+    CNO CHAR(6 BYTE),
+    CNAME VARCHAR2(10 CHAR),
+    CREDIT NUMBER(1)
+);
+DROP TABLE COURSE;
+INSERT INTO COURSE VALUES('C00001','C Language',3);
+INSERT INTO COURSE VALUES('C00002','프로그래밍 기초',3);
+INSERT INTO COURSE VALUES('C00003','프로그래밍 응용','4');
 
+-- 사원 테이블 생성
+-- 사번, 사원명, 부서명, 월급, 입사일
+CREATE TABLE EMPLOYEE(
+    ENO CHAR(6),
+    ENAME VARCHAR2(50),
+    DNAME VARCHAR2(50),
+    SALARY NUMBER(7,2),
+    HIREDATE DATE
+);
+-- 사원정보 추가
+INSERT INTO EMPLOYEE
+VALUES('E00001','이철수','회계부',30000.00,'21/01/01');
+ 
+COMMIT;
+------------------------------------------------------------------
+-- PERSON 테이블
+--  이름 -> 문자열 
+--  나이 -> 숫자
+CREATE TABLE PERSON(
+    PNAME VARCHAR2(50),
+    PAGE NUMBER(3)
+);
 
+INSERT INTO PERSON VALUES('김철수',22);
+INSERT INTO PERSON VALUES('이철수',33);
+INSERT INTO PERSON VALUES('박철수',24);
+INSERT INTO PERSON VALUES('강철수',43);
+INSERT INTO PERSON VALUES('곽철수',56);
+
+COMMIT;
+
+-- 테이블 삭제 --> 테이블 삭제시 모든 데이터가 날아감.
+--      DROP TABLE 삭제할_테이블_명;
+DROP TABLE PERSON;
+
+-- 컬럼에 기본값 설정
+CREATE TABLE PERSON(
+    PNAME VARCHAR2(50),
+    PAGE NUMBER(3) DEFAULT 100
+);
+-- 이름만 저장하는 INSERT문 실행
+INSERT INTO PERSON(PNAME)
+VALUES('김영수');
+-- PERSON 테이블 전체 조회문 실행
+SELECT PNAME, PAGE FROM PERSON;
+
+-- 테이블에 저장된 데이터를 삭제
+TRUNCATE TABLE PERSON;
+
+-- NOT NULL
+--  반드시 저장되어야 하는 항목에 적용
+CREATE TABLE PERSON(
+    PNAME VARCHAR2(50) NOT NULL,
+    PAGE NUMBER(3) DEFAULT 100
+);
+
+INSERT INTO PERSON(PAGE) VALUES(34);
+
+CREATE TABLE PERSON(
+    PNAME VARCHAR2(50),
+    PAGE NUMBER(3) DEFAULT 100 NOT NULL 
+);
+
+INSERT INTO PERSON(PNAME) VALUES('박철수');
+INSERT INTO PERSON(PNAME,PAGE) VALUES('박철수',NULL);
+SELECT * FROM PERSON;
