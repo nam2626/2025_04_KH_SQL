@@ -187,3 +187,28 @@ VALUES(NULL,'이철수','컴퓨터공학과',3.24);
 COMMIT;
 
 SELECT * FROM STUDENT;
+
+--학생 데이터 검색
+-- 같다
+SELECT * FROM STUDENT WHERE SNO = '20260049';
+-- 학과명이 '물리학과'인 학생들만 조회
+SELECT * FROM STUDENT WHERE MNAME = '물리학과';
+-- 다르다
+-- 학과명이 '물리학과'가 아닌 학생들만 조회
+SELECT * FROM STUDENT WHERE MNAME != '물리학과';
+SELECT * FROM STUDENT WHERE MNAME <> '물리학과';
+-- > < >= <=
+--평점이 3.0이상인 학생들만 조회
+SELECT * FROM STUDENT WHERE SCORE >= 3.0;
+--평점이 3.0미만인 학생들만 조회
+SELECT * FROM STUDENT WHERE SCORE < 3.0;
+
+-- LIKE
+SELECT * FROM STUDENT WHERE SNAME LIKE '최수빈';
+SELECT * FROM STUDENT WHERE SNAME LIKE '최%';
+SELECT * FROM STUDENT WHERE SNAME LIKE '%연';
+SELECT * FROM STUDENT WHERE SNAME LIKE '%수%';
+
+INSERT INTO STUDENT VALUES ('2024000', '이영수', '물리학', 2.9);
+
+-- 학번이 2024000 인데이터 조회는 SQL문 작성, LIKE 비교문, = 비교문 따로 작성
