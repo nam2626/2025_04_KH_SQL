@@ -95,6 +95,31 @@ DELETE FROM PERSON WHERE PAGE >= 40;
 DELETE FROM STUDENT WHERE SCORE <= 0.5;
 SELECT * FROM STUDENT WHERE SCORE <= 0.5;
 
+-- 데이터 수정 : UPDATE
+-- UPDATE 테이블명 SET 수정할컬럼명 = 수정할값, ...  WHERE 조건절
+UPDATE PERSON SET PAGE = 99;
+UPDATE PERSON SET PAGE = 99 WHERE PAGE = 30;
+SELECT * FROM PERSON;
+ROLLBACK;
+-- PERSON 테이블에있는 모든 데이터의 나이값을 1씩 증가
+UPDATE PERSON SET PAGE = PAGE + 1;
+-- STUDENT 테이블에서 평점이 1.0 미만인 데이터의 이름을 제적으로 수정
+UPDATE STUDENT SET SNAME = '제적' WHERE SCORE < 1.0;
+SELECT * FROM STUDENT;
+
+-- CAR
+-- 차량번호, 차량명, 제조사, 제조년도, 금액
+-- 차량번호 --> A000000000
+CREATE TABLE CAR(
+    ID CHAR(10) PRIMARY KEY,
+    CNAME VARCHAR(50),
+    MAKER VARCHAR(50),
+    MYEAR NUMBER(4),
+    PRICE NUMBER(5)
+);
+
+select * from car;
+
 
 
 
