@@ -120,6 +120,28 @@ CREATE TABLE CAR(
 
 select * from car;
 
+-- 자동차 테이블에서 제조사가 BMW인 자동차를 조회
+-- ROWNUM --> 행번호
+SELECT ROWNUM, C.* FROM CAR C
+WHERE C.MAKER LIKE 'BMW';
+-- 자동차 테이블에서 위에서 데이터 10건만 출력
+SELECT ROWNUM, C.* FROM CAR C
+WHERE ROWNUM <= 10;
+-- 자동차 테이블에서 금액이 큰 순서대로 전체 데이터 조회
+SELECT * FROM CAR ORDER BY PRICE ASC; -- 오름차순 생략해도 가능
+SELECT * FROM CAR ORDER BY PRICE DESC; -- 내림차순 생략해도 가능
+
+-- FROM : 데이터 소스
+-- WHERE : 데이터를 필터링
+-- GROUP BY : 그룹 수행
+-- SELECT : 출력할 컬럼 선택
+-- ORDER BY : 출력할 데이터 정렬
+-- 자동차 테이블에서 금액이 큰 순서대로 전체 데이터 조회, 행번호도 포함
+SELECT ROWNUM, C.* FROM CAR C ORDER BY C.PRICE DESC;
+
+
+
+
 
 
 
