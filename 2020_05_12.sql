@@ -155,7 +155,15 @@ SELECT * FROM PERSON WHERE PNAME IS NULL;
 -- PERSON 테이블에 이름이 NULL 값이 아닌 데이터를 출력
 SELECT * FROM PERSON WHERE PNAME IS NOT NULL;
 --------------------------------------------------------
-
-
-
+-- 날짜 함수
+SELECT SYSDATE FROM DUAL;
+-- 오라클에서 지정된 현재 날짜 시간의 출력 포멧을 변경 - 현재 연결된 세션에서만 가능
+ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS';
+--TO_CHAR(데이터, '형식') : 데이터를 지정한 문자 포멧 형식으로 문자열 변환
+-- YYYY - 연도 4자리, YY - 연도 2자리, RRRR - 연도 4자리, RR - 연도 2자리
+SELECT TO_CHAR(SYSDATE, 'YYYY RRRR') FROM DUAL;
+-- M MM MON MONTH 
+SELECT TO_CHAR(SYSDATE, 'MM MON MONTH') FROM DUAL;
+SELECT TO_CHAR(SYSDATE, 'MON MONTH','NLS_DATE_LANGUAGE=KOREAN') FROM DUAL;
+SELECT TO_CHAR(SYSDATE, 'MON MONTH','NLS_DATE_LANGUAGE=ENGLISH') FROM DUAL;
 
