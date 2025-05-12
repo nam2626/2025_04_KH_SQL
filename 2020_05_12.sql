@@ -139,11 +139,22 @@ SELECT * FROM CAR ORDER BY PRICE DESC; -- 내림차순 생략해도 가능
 -- 자동차 테이블에서 금액이 큰 순서대로 전체 데이터 조회, 행번호도 포함
 SELECT ROWNUM, C.* FROM CAR C ORDER BY C.PRICE DESC;
 
-
-
-
-
-
+--자동차 테이블에서 자동차번호가 3번째 자리가 8, 4번째 자리가 9인 자동차를 조회
+SELECT * FROM CAR WHERE ID LIKE '__89______';
+SELECT * FROM CAR WHERE ID LIKE '__89%';
+-- 자동차 테이블에서 금액이 10000넘는 자동차의 금액을 3000씩 금액을 낮추세요
+UPDATE CAR SET PRICE = PRICE - 3000
+WHERE PRICE > 10000;
+-- 자동차 테이블에서 제조사가 Jeep인 데이터를 삭제하세요
+DELETE FROM CAR WHERE MAKER = 'Jeep';
+-- NULL 값 비교
+INSERT INTO PERSON VALUES(NULL, 30);
+SELECT * FROM PERSON;
+-- PERSON 테이블에 이름이 NULL 값인 데이터를 출력
+SELECT * FROM PERSON WHERE PNAME IS NULL;
+-- PERSON 테이블에 이름이 NULL 값이 아닌 데이터를 출력
+SELECT * FROM PERSON WHERE PNAME IS NOT NULL;
+--------------------------------------------------------
 
 
 
