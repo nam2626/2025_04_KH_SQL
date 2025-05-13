@@ -199,5 +199,40 @@ WHERE HIREDATE
 -- DUAL : 임시 테이블, 값을 확인하는 용도(함수 결과값, 계산 결과값)
 -- sysdate : 현재 날짜 시간값
 SELECT 'HELLO', 10 + 2, 10 - 3, 10 / 4, 2 * 6 FROM DUAL;
-
 -- 문자열 함수
+-- INITCAP : 각 단어별 첫글자는 대문자로, 나머지는 소문자로 변환
+SELECT INITCAP('HELLO WORLD') FROM DUAL;
+SELECT INITCAP('hello world') FROM DUAL;
+
+-- LOWER : 알파벳 전부 소문자로 변경
+-- UPPER : 알파벳 전부 대문자로 변경
+SELECT LOWER('Hello World'), UPPER('Hello World') FROM DUAL;
+
+-- LENGTH : 글자 개수
+-- LENGTHB : 글자 개수에 해당하는 바이트 수
+SELECT LENGTH('안녕하세요'), LENGTHB('안녕하세요') FROM DUAL;
+
+-- 학생 테이블의 학과명의 글자 개수와 글자 개수의 바이트수를 출력
+SELECT DISTINCT MNAME, LENGTH(MNAME), LENGTHB(MNAME) 
+FROM STUDENT;
+-- INSTR : 문자열 검색, 검색결과가 있으면 0보다 큰값, 검색 결과가 없으면 0
+SELECT INSTR('ABCDEFG', 'CD') FROM DUAL;
+SELECT INSTR('ABCDEFG', 'CDF') FROM DUAL;
+-- 문자열 공백 체크
+SELECT INSTR('HELLO WORLD', ' ') FROM DUAL;
+
+DROP TABLE PERSON;
+-- PERSON 테이블 생성시 PNAME에 공백이 없는 조건
+-- 나이는 1 ~ 999
+CREATE TABLE PERSON(
+    PNAME VARCHAR2(50),
+    PAGE NUMBER(3),
+    CONSTRAINT CHK_NAME CHECK(INSTR(PNAME, ' ') = 0),
+    CONSTRAINT CHK_AGE CHECK(PAGE BETWEEN 1 AND 999)    
+);
+ALTER TABLE PERSON ADD CONSTRAINT 
+CHK_AGE CHECK(PAGE BETWEEN 1 AND 999) ;
+
+INSERT INTO PERSON VALUES('김철수',10);
+INSERT INTO PERSON VALUES('김 철수',10);
+INSERT INTO PERSON VALUES('김철수',0);
