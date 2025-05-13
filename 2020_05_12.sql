@@ -195,3 +195,7 @@ WHERE HIREDATE
         TO_DATE('2024-01-01','YYYY-MM-DD') 
         AND 
         TO_DATE('2024-01-31','YYYY-MM-DD');
+
+-- DUAL : 임시 테이블, 값을 확인하는 용도(함수 결과값, 계산 결과값)
+-- sysdate : 현재 날짜 시간값
+SELECT 'HELLO', 10 + 2, 10 - 3, 10 / 4, 2 * 6 FROM DUAL;
