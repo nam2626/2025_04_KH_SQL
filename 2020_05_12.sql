@@ -159,6 +159,7 @@ SELECT * FROM PERSON WHERE PNAME IS NOT NULL;
 SELECT SYSDATE FROM DUAL;
 -- 오라클에서 지정된 현재 날짜 시간의 출력 포멧을 변경 - 현재 연결된 세션에서만 가능
 ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS';
+ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YY';
 --TO_CHAR(데이터, '형식') : 데이터를 지정한 문자 포멧 형식으로 문자열 변환
 -- YYYY - 연도 4자리, YY - 연도 2자리, RRRR - 연도 4자리, RR - 연도 2자리
 SELECT TO_CHAR(SYSDATE, 'YYYY RRRR') FROM DUAL;
@@ -185,5 +186,17 @@ SELECT * FROM EMPLOYEE WHERE TO_CHAR(HIREDATE,'YYYY-MM') = '2024-06';
 -- EMPLOYEE 테이블에서 2024년 3분기에 입사한 사원만 조회
 SELECT * FROM EMPLOYEE WHERE TO_CHAR(HIREDATE,'Q-YYYY') = '3-2024';
 -- EMPLOYEE 테이블에서 2024년 1월 1일부터 입사한 사원만 조회
+<<<<<<< HEAD
 
 -- EMPLOYEE 테이블에서 2024년 1월 1일부터 1월 31일까지 입사한 사원만 조회
+=======
+SELECT * FROM EMPLOYEE WHERE HIREDATE >= '2024-01-01';
+SELECT * FROM EMPLOYEE WHERE HIREDATE >= TO_DATE('2024-01-01','YYYY-MM-DD');
+-- EMPLOYEE 테이블에서 2024년 1월 1일부터 1월 31일까지 입사한 사원만 조회
+SELECT * FROM EMPLOYEE 
+WHERE HIREDATE 
+    BETWEEN 
+        TO_DATE('2024-01-01','YYYY-MM-DD') 
+        AND 
+        TO_DATE('2024-01-31','YYYY-MM-DD');
+>>>>>>> a1dc36c207b3bbd8daaafed789cfb0e7e5685554
