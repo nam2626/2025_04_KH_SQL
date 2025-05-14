@@ -117,4 +117,22 @@ FROM STUDENT S;
 
 -- 학과별 평균 점수와 개인 점수의 차이값을 조회
 -- 학번 이름 학과명 점수 평균점수 점수 - 평균점수 
+SELECT
+    S.*,
+    AVG(SCORE) OVER(PARTITION BY MNAME) AS SCORE_AVG,
+    SCORE - AVG(SCORE) OVER(PARTITION BY MNAME) AS SCORE_DIFF
+FROM STUDENT S;
 
+-- 전체 학생 조회시 성적을 내림차순으로 정렬, 해당 순서대로 누적 점수를 조회
+SELECT
+    S.*,
+    SUM(SCORE) OVER(ORDER BY SCORE DESC) AS SCORE_SUM
+FROM STUDENT S;
+
+SELECT
+    S.*,
+    SUM(SCORE) OVER(ORDER BY SCORE DESC) AS SCORE_SUM
+FROM STUDENT S
+WHERE S.SCORE >= 3.0;
+
+-- 각 학생의 점수와 동일한 점수를 받은 사람이 몇 명인지 조회
