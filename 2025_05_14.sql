@@ -153,3 +153,23 @@ SELECT
     S.*
 FROM STUDENT S;
 
+-- 그룹함수
+--  테이블에 있는 데이터를 특정 컬럼을 기준으로 묶어서 통계값을 구하는 함수
+--  SUM, AVG, COUNT, MAX, MIN, STDDEV, VARIANCE
+--  윈도우 함수의 PARTITION 처럼 특정 컬럼에 동일한 데이터를 묶어서 통계값을 구함
+--  단, 다른점은 그룹함수는 PARTITION과는 다르게 행을 축소 시킴
+-- CAR 테이블의 제조사별 금액의 총합을 조회
+SELECT MAKER, SUM(PRICE)
+FROM CAR
+GROUP BY MAKER
+ORDER BY SUM(PRICE) DESC;
+
+-- 실행 순서 FROM -> WHERE -> GROUP BY -> SELECT -> ORDER BY
+-- WHERE 입장에서는 별칭 M에 대한 정보를 모름.
+SELECT MAKER AS M, SUM(PRICE) AS MAKER_TOTAL_PRICE
+FROM CAR
+WHERE INSTR(M,'B') > 0
+GROUP BY MAKER
+ORDER BY MAKER_TOTAL_PRICE DESC;
+
+
