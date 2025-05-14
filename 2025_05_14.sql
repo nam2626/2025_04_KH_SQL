@@ -184,4 +184,46 @@ FROM STUDENT
 GROUP BY MNAME;
 
 -- 학과별 인원수를 조회, 단 평점이 3.0이상인 학생들의 인원수를 조회
+SELECT MNAME, COUNT(*) AS MAJOR_STUDENT_COUNT
+FROM STUDENT
+WHERE SCORE >= 3.0
+GROUP BY MNAME;
 
+-- 학과별 인원수를 조회, 단 학과 평균점수가 2.5 이하인 학과만 조회
+SELECT MNAME, COUNT(*) AS MAJOR_STUDENT_COUNT
+FROM STUDENT
+GROUP BY MNAME HAVING AVG(SCORE) <= 2.5;
+
+-- 학과별 평점의 평균을 조회, 단 학과 인원수가 30명을 넘어가는 학과만 대상
+SELECT MNAME, AVG(SCORE) AS AVG_SCORE
+FROM STUDENT
+GROUP BY MNAME HAVING COUNT(*) > 30;
+
+-- 학생 테이블에 성별 컬럼을 추가 M, F
+ALTER TABLE STUDENT ADD GENDER CHAR(1);
+-- UPDATE 문을 이용해서 성별을 다양하게 수정
+SELECT * FROM STUDENT;
+
+UPDATE STUDENT SET GENDER = DECODE(MOD(SUBSTR(SNO,8,1),2),0,'M',1,'F');
+SELECT DECODE(MOD(SUBSTR(SNO,8,1),2),0,'M',1,'F') FROM STUDENT;
+
+--입학한 년도별, 학과별, 성별로 인원수, 평점 평균, 평점 총합를 조회하세요.
+SELECT 
+    SUBSTR(SNO,1,4), MNAME, GENDER, COUNT(*), AVG(SCORE), SUM(SCORE)
+FROM STUDENT
+GROUP BY SUBSTR(SNO,1,4), MNAME, GENDER;
+--입학한 년도별, 학과별로 인원수, 평점 평균, 평점 총합를 조회하세요.
+SELECT 
+    SUBSTR(SNO,1,4), MNAME, COUNT(*), AVG(SCORE), SUM(SCORE)
+FROM STUDENT
+GROUP BY SUBSTR(SNO,1,4), MNAME;
+--학과별로 인원수, 평점 평균, 평점 총합를 조회하세요.
+SELECT 
+    MNAME, COUNT(*), AVG(SCORE), SUM(SCORE)
+FROM STUDENT
+GROUP BY MNAME;
+--학과별, 성별로 인원수, 평점 평균, 평점 총합를 조회하세요.
+
+--성별로 인원수, 평점 평균, 평점 총합를 조회하세요.
+
+--전체 인원수, 평점 평균, 평점 총합를 조회하세요.
