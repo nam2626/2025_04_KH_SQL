@@ -76,8 +76,6 @@ FROM CAR C;
 -- ROWS BETWEEN CURRENT ROW AND N FOLLOWING
 -- 현재 행 포함, 이전 N개 행까지
 -- ROWS BETWEEN N PRECEDING AND CURRENT ROW
-
-
 SELECT 
     MAX(PRICE) OVER(PARTITION BY C.MAKER ORDER BY C.PRICE DESC) as max, 
     MIN(PRICE) OVER(PARTITION BY C.MAKER ORDER BY C.PRICE DESC) as min, C.* 
@@ -109,3 +107,14 @@ SELECT
     ), 
     C.* 
 FROM CAR C;
+
+-- 학생 테이블 윈도우 함수 실습
+-- 전공별 성적 순위를 출력, 순위를 건너뛰지 않음.
+SELECT 
+    DENSE_RANK() OVER(PARTITION BY MNAME ORDER BY SCORE DESC) AS SCORE_RANK,
+    S.*
+FROM STUDENT S;
+
+-- 학과별 평균 점수와 개인 점수의 차이값을 조회
+-- 학번 이름 학과명 점수 평균점수 점수 - 평균점수 
+
