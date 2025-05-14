@@ -223,7 +223,63 @@ SELECT
 FROM STUDENT
 GROUP BY MNAME;
 --학과별, 성별로 인원수, 평점 평균, 평점 총합를 조회하세요.
-
+SELECT 
+    MNAME, GENDER, COUNT(*), AVG(SCORE), SUM(SCORE)
+FROM STUDENT
+GROUP BY MNAME, GENDER;
 --성별로 인원수, 평점 평균, 평점 총합를 조회하세요.
-
+SELECT 
+    GENDER, COUNT(*), AVG(SCORE), SUM(SCORE)
+FROM STUDENT
+GROUP BY GENDER;
 --전체 인원수, 평점 평균, 평점 총합를 조회하세요.
+SELECT 
+    COUNT(*), AVG(SCORE), SUM(SCORE), MAX(SCORE), 
+    MIN(SCORE), STDDEV(SCORE), VARIANCE(SCORE)
+FROM STUDENT;
+
+-- CUBE 함수
+-- 제공된 컬럼의 모든 조합에 대한 집계 결과를 생성하는 함수
+-- CUBE(A,B)
+-- A, B 그룹에 대한 집계
+-- A에 대한 집계
+-- B에 대한 집계
+-- 전체 집계
+SELECT 
+    MNAME, GENDER, COUNT(*), AVG(SCORE), SUM(SCORE)
+FROM STUDENT
+GROUP BY CUBE(MNAME, GENDER);
+-- CUBE(A,B,C)
+-- A B C 집계
+-- A B 집계
+-- A C 집계
+-- B C 집계
+-- A 집계
+-- B 집계
+-- C 집계
+-- 전체 집계
+-- 입학년도, 학과, 성별 
+SELECT 
+    SUBSTR(SNO, 1, 4) AS YEAR, MNAME, GENDER, 
+    COUNT(*), AVG(SCORE), SUM(SCORE)
+FROM STUDENT
+GROUP BY CUBE(SUBSTR(SNO, 1, 4), MNAME, GENDER);
+-- ROLLUP
+-- 계층적인 데이터 집계 생성
+-- 상위 수준 요약 정보를 점점 상세한 수준으로 내려가면서 데이터 집계
+-- ROLLUP(A,B)
+-- A, B에 대한 집계 결과
+-- A에 대한 집계 결과
+-- 전체 집계 결과
+-- ROLLUP(A,B,C)
+-- A, B, C에 대한 집계 결과
+-- A, B에 대한 집계 결과
+-- A에 대한 집계 결과
+-- 전체 집계 결과
+SELECT 
+    SUBSTR(SNO, 1, 4) AS YEAR, MNAME, GENDER, 
+    COUNT(*), AVG(SCORE), SUM(SCORE)
+FROM STUDENT
+GROUP BY ROLLUP(SUBSTR(SNO, 1, 4), MNAME, GENDER);
+
+
