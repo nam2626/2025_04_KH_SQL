@@ -136,3 +136,12 @@ FROM STUDENT S
 WHERE S.SCORE >= 3.0;
 
 -- 각 학생의 점수와 동일한 점수를 받은 사람이 몇 명인지 조회
+SELECT
+    S.*,
+    COUNT(*) OVER(PARTITION BY SCORE) AS SCORE_COUNT
+FROM STUDENT S;
+
+-- 각 학생의 전공 내에 최고 점수와 본인의 점수를 차이를 조회
+
+-- 성적 순서대로 정렬 했을때 다음 학생의 이름을 조회
+
