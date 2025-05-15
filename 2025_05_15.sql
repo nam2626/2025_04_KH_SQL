@@ -1,0 +1,51 @@
+-- 조인(JOIN)
+-- 여러개 테이블에서 필요한 데이터를 조회하기 위해
+-- 테이블을 결합해서 조회하기 위한 연산
+-- 조인을 할려면 테이블끼리 연결 될 수 있는 동일한 데이터를 가지고 있는 컬럼이 있어야함
+CREATE TABLE A(
+	CODE CHAR(1),
+	VAL NUMBER(1)
+);
+CREATE TABLE B(
+	CODE CHAR(1),
+	UNIT CHAR(1)
+);
+INSERT INTO A VALUES('A',1);
+INSERT INTO A VALUES('B',2);
+INSERT INTO A VALUES('C',3);
+INSERT INTO A VALUES('D',4);
+
+INSERT INTO B VALUES('A','+');
+INSERT INTO B VALUES('B','-');
+INSERT INTO B VALUES('C','*');
+INSERT INTO B VALUES('F','/');
+
+SELECT * FROM A;
+SELECT * FROM B;
+
+-- 동일 조인
+-- 특정 컬럼을 선택해서 같은 값을 기준으로 결합
+SELECT A.CODE, A.VAL, B.CODE, B.UNIT
+FROM A, B
+WHERE A.CODE = B.CODE;
+-- INNER JOIN
+-- 조인 조건을 만족하는 모든 행을 결함
+SELECT A.CODE, A.VAL, B.CODE, B.UNIT
+FROM A INNER JOIN B ON A.CODE = B.CODE;
+SELECT A.CODE, A.VAL, B.CODE, B.UNIT
+FROM A JOIN B ON A.CODE = B.CODE;
+
+SELECT A.CODE, A.VAL, B.CODE, B.UNIT
+FROM A INNER JOIN B ON A.CODE <> B.CODE;
+-- NATURAL JOIN
+-- 자연 조인
+-- 자동으로 똑같은 컬럼을 찾아서 조인하고, 중복된 컬럼은 제거해서 조회
+SELECT * FROM A NATURAL JOIN B;
+
+
+
+
+
+
+
+
