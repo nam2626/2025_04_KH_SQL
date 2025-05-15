@@ -113,4 +113,30 @@ SELECT * FROM CAR;
 -- CAR 테이블에 MAKER 컬럼을 제거
 ALTER TABLE CAR DROP COLUMN MAKER;
 
+-- 자동차 정보 조회시
+--  자동차모델 번호, 자동차 모델명, 제조년도, 제조사명, 금액
+SELECT C.ID, C.CNAME, C.MYEAR, CM.CM_NAME, C.PRICE
+FROM CAR C 
+INNER JOIN CAR_MAKER CM ON C.CM_ID = CM.CM_ID;
 
+SELECT SNO FROM STUDENT;
+--장학금 테이블
+CREATE TABLE STUDENT_SCHOLARSHIP(
+    SSNO NUMBER,
+    SNO CHAR(8),
+    MONEY NUMBER
+);
+
+SELECT * FROM STUDENT_SCHOLARSHIP;
+
+-- 장학금을 받는 학생 정보만 조회
+-- 학번, 이름, 학과명, 장학금 금액
+SELECT S.SNO, S.SNAME, M.MNAME, SS.MONEY
+FROM
+    MAJOR M 
+    INNER JOIN STUDENT S ON M.MNO = S.MNO
+    INNER JOIN STUDENT_SCHOLARSHIP SS ON S.SNO = SS.SNO;
+
+-- 제조사별 자동차 개수를 조회
+
+-- 제조사별, 출시연도별 자동차 개수를 조회
