@@ -301,3 +301,19 @@ SELECT
 FROM STUDENT
 GROUP BY
     GROUPING SETS(SUBSTR(SNO, 1, 4),(MNAME, GENDER),());
+
+---------------------
+-- 1. 전체 사원의 평균 급여를 소수점 2자리까지 출력하세요.
+SELECT TRUNC(AVG(SALARY),2) AS AVG_SALARY FROM EMPLOYEE;
+SELECT DISTINCT AVG(SALARY) OVER() AS AVG_SALARY FROM EMPLOYEE;
+-- 2. 부서별 사원 수를 조회하세요.
+SELECT DNAME, COUNT(*) AS EMP_DEPT_COUNT FROM EMPLOYEE GROUP BY DNAME;
+-- 3. 직급별 평균 급여를 조회하세요.
+
+-- 4. 부서별 최대 급여와 최소 급여를 조회하세요.
+-- 5. 부서별 사원의 총 급여 합계를 조회하세요.
+-- 6. 직급별 사원 수를 조회하되, 2명 이상인 직급만 조회하세요.
+-- 7. 부서별 평균 급여가 3,000,000 이상인 부서만 조회하세요.
+-- 8. 직급별 평균 급여를 내림차순으로 정렬해서 출력하세요.
+-- 9. 부서별 급여 평균과 급여 총합을 함께 출력하세요.
+-- 10. 입사 연도별 사원 수를 조회하세요. (SUBSTR(HIREDATE, 1, 4) 사용)
