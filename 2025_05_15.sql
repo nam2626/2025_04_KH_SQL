@@ -155,6 +155,20 @@ SELECT DISTINCT
     COUNT(*) OVER(PARTITION BY CM.CM_NAME, C.MYEAR)
 FROM CAR_MAKER CM INNER JOIN CAR C ON CM.CM_ID = C.CM_ID;
 
+-- 외부 조인(Outer JOIN)
+-- 조건에 맞지 않는 행도 결과에 포함 시킬때 사용하는 조인
+-- 조건에 맞지 않는 행은 NULL값으로 나옴
+SELECT A.*, B.*
+FROM A LEFT OUTER JOIN B ON A.CODE = B.CODE;
+-- 오라클에서만 됨.
+SELECT A.*, B.*
+FROM A , B
+WHERE A.CODE = B.CODE(+); 
+
+SELECT A.*, B.*
+FROM A RIGHT OUTER JOIN B ON A.CODE = B.CODE;
+
+
 
 
 
