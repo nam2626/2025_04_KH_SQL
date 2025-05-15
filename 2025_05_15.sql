@@ -42,10 +42,35 @@ FROM A INNER JOIN B ON A.CODE <> B.CODE;
 -- 자동으로 똑같은 컬럼을 찾아서 조인하고, 중복된 컬럼은 제거해서 조회
 SELECT * FROM A NATURAL JOIN B;
 
+-- CROSS JOIN
+-- 교차 조인
+-- 두 테이블의 모든 조합을 조회
+SELECT * FROM A CROSS JOIN B;
 
+-- 학생 테이블에 있는 학과명을 중복된 내용을 제외하고 조회
+SELECT 
+    'M' || TO_CHAR(ROW_NUMBER() OVER(ORDER BY MNAME),'FM00') AS MNO, 
+    MNAME 
+FROM 
+    (SELECT DISTINCT MNAME FROM STUDENT);
 
+CREATE TABLE MAJOR
+AS
+SELECT 
+    'M' || TO_CHAR(ROW_NUMBER() OVER(ORDER BY MNAME),'FM00') AS MNO, 
+    MNAME 
+FROM 
+    (SELECT DISTINCT MNAME FROM STUDENT);
 
+-- 학생 테이블에 학과 번호 컬럼을 추가
+ALTER TABLE STUDENT ADD MNO VARCHAR2(4);
 
+-- 학생 테이블에 학과 번호를 업데이트
+UPDATE STUDENT S SET S.MNO = 
+(SELECT M.MNO FROM MAJOR M WHERE S.MNAME = M.MNAME);
 
+SELECT * FROM STUDENT;
+-- 학생 테이블에서 학과명 컬럼을 제거
+ALTER TABLE STUDENT DROP COLUMN MNAME;
 
 
