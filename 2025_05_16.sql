@@ -90,7 +90,29 @@ DELETE FROM STUDENT WHERE SNO LIKE '20266958';
 SELECT FLOOR(DBMS_RANDOM.VALUE * 9000) + 1000 FROM DUAL;
 UPDATE STUDENT SET SNO = SUBSTR(SNO,1,4) || (FLOOR(DBMS_RANDOM.VALUE * 9000) + 1000)
 WHERE SNO LIKE '2026%'; 
--- 컬럼 조건(CHECK)
+-- CHECK 제약조건(컬럼 조건)
+-- 컬럼에 들어올 값의 범위 및 제약 조건을 거는 방법
+-- ALTER TABLE 테이블명 ADD CONSTRAINT 제약조건명 CHECK(조건식);
+-- CONSTRAINT 제약조건명 CHECK(조건식) <-- 테이블 생성시 넣을때
+-- PERSON 테이블에 나이가 0보다 큰값만 저장되게끔 제약조건을 설정
+ALTER TABLE PERSON ADD CONSTRAINT CHK_PAGE CHECK(PAGE > 0);
+INSERT INTO PERSON VALUES('0021','김철수',-1);
+INSERT INTO PERSON VALUES('0020','김철수',56);
+--특정 제약 조건을 비활성화
+ALTER TABLE PERSON DISABLE CONSTRAINT CHK_PAGE;
+--특정 제약 조건을 활성화 -> 다시 활성화 할때 제약조건 다시 체크
+ALTER TABLE PERSON ENABLE CONSTRAINT CHK_PAGE;
+DELETE FROM PERSON WHERE PAGE <= 0;
+--PERSON 테이블에 데이터 추가시 이름에 공백이 들어가지 않도록 제약조건을 설정
 
+--학생 테이블에 평점이 0.0~4.5까지만 저장되게끔 제약조건을 추가
 
 -- Sub Query(서브 쿼리)
+
+
+
+
+
+
+
+
