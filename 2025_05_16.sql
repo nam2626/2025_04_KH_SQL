@@ -146,6 +146,14 @@ FROM STUDENT S INNER JOIN MAJOR M ON S.MNO = M.MNO
 WHERE 
 S.SCORE IN((SELECT MIN(SCORE) FROM STUDENT),(SELECT MAX(SCORE) FROM STUDENT));
 
+--평균 이하인 학생들의 평점을 0.5점 증가
+UPDATE STUDENT SET SCORE = SCORE + 4.5
+WHERE SCORE <= (SELECT AVG(SCORE) FROM STUDENT);
+--장학금을 받는 학생들만조회
+--학번, 이름, 학과명, 평점
+
+--장학금을 받는 못하는 학생들만조회			
+
 
 
 
