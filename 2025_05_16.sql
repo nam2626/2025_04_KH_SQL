@@ -111,6 +111,27 @@ ALTER TABLE STUDENT ADD CONSTRAINT CHK_SCORE CHECK(SCORE BETWEEN 0 AND 4.5);
 INSERT INTO STUDENT VALUES('11111111','테스트',4.6,'M','M01');
 
 -- Sub Query(서브 쿼리)
+-- 하나의 SQL문에 또 다른 SQL문이 있는 형태
+-- 단일 행,멀티 행,멀티 열,인라인 뷰,스칼라,상호연관,exists / not exists
+
+-- 조건식에 들어가는 서브쿼리
+-- 평점이 최고점에 해당하는 학생 정보를 조회
+-- 1. 학생 테이블에서 최고점에 해당하는 점수를 조회
+SELECT MAX(SCORE) FROM STUDENT;
+-- 2. 1번 값을 조건식에서 활용
+SELECT * FROM STUDENT 
+WHERE SCORE = (SELECT MAX(SCORE) FROM STUDENT);
+-- 평점이 전체 평균 이하인 학생 정보를 조회
+SELECT AVG(SCORE) FROM STUDENT;
+SELECT * FROM STUDENT 
+WHERE SCORE <= (SELECT AVG(SCORE) FROM STUDENT);
+-- 평점이 최저점인 학생 데이터를 삭제
+
+--평점이 최고점인 학생과, 최저점인 학생을 조회
+--조회할 컬럼은 학번, 이름, 학과명, 평점, 성별
+
+
+
 
 
 
