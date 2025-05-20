@@ -87,3 +87,42 @@ END;
 /
 SELECT GET_MAJOR_NAME('M01'), GET_MAJOR_NAME('M99') FROM DUAL;
 ------------------------------------------------------------------------
+/
+CREATE OR REPLACE FUNCTION GET_TOTAL(N1 IN NUMBER, N2 IN NUMBER)
+RETURN NUMBER
+IS
+    TOTAL NUMBER;
+    I NUMBER;
+BEGIN
+    TOTAL := 0;
+    I := N1;
+
+    -- LOOP
+    --     TOTAL := TOTAL + I;
+    --     I := I + 1;
+    --     EXIT WHEN I > N2;
+    -- END LOOP;
+
+    -- WHILE(I <= N2)
+    -- LOOP
+    --     TOTAL := TOTAL + I;
+    --     I := I + 1;
+    -- END LOOP;
+
+    FOR I IN N1 .. N2
+    LOOP
+        TOTAL := TOTAL + I;
+    END LOOP;
+
+    RETURN TOTAL;
+END; 
+/
+SELECT GET_TOTAL(1,100) FROM DUAL;
+
+
+
+
+
+
+
+
