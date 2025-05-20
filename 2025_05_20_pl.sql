@@ -118,6 +118,34 @@ BEGIN
 END; 
 /
 SELECT GET_TOTAL(1,100) FROM DUAL;
+--------------------------------------------------------------
+-- 트리거
+--  데이터베이스에서 발생하는 이벤트에 대한 반응으로
+--  자동 실행되는 절차적 SQL
+--  INSERT, UPDATE, DELETE 등의 이벤트에 대한 반응으로 실행
+--  테이블에 대한 이벤트가 발생하면 자동으로 실행되는 PL/SQL 블록
+--------------------------------------------------------------
+CREATE TABLE DATA_LOG(
+	LOG_DATE DATE DEFAULT SYSDATE,
+	LOG_DETAIL VARCHAR2(1000)	
+);
+-- 학과(MAJOR) 테이블에 내용이 수정(UPDATE)되면 해당 기록을 저장하는 트리거
+/
+CREATE OR REPLACE TRIGGER UPDATE_MAJOR_LOG
+BEFORE 
+    UPDATE ON MAJOR
+FOR EACH ROW
+BEGIN
+    INSERT INTO DATA_LOG(LOG_DETAIL) VALUES(
+        :OLD.MNO || ' - ' || :NEW.MNO || ',' || 
+        :OLD.MNAME || ' - ' || :NEW.MNAME);
+END;
+/
+UPDATE MAJOR SET MNAME = '디지털콘텐츠학과' WHERE MNO = 'M02';
+SELECT * FROM DATA_LOG;
+
+
+
 
 
 
