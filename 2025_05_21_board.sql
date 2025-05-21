@@ -1,9 +1,4 @@
-select 
-    standard_hash('1.2!3','SHA512'),
-    length(standard_hash('1.2!3','SHA512'))
-
-from dual;
-
+-- 게시판 DB
 CREATE TABLE board_member (
 	id	varchar2(50)		NOT NULL,
 	passwd	char(128)		NOT NULL,
@@ -157,4 +152,61 @@ ALTER TABLE board_comment_hate ADD CONSTRAINT FK_BCMH_CNO FOREIGN KEY (
 REFERENCES board_comment (
 	cno
 );
+
+---------------
+alter table board drop column content;
+alter table board add content clob;
+delete from board_member;
+-----------------------------------------
+--3. 시퀸스 생성
+--글번호 1001~
+create sequence seq_board_bno
+start with 1001;
+--댓글번호 3001~
+create sequence seq_board_comment_cno
+start with 3001;
+
+select 
+    standard_hash('1.2!3','SHA512'),
+    length(standard_hash('1.2!3','SHA512'))
+from dual;
+
+-- 회원 정보 1건 저장하는 insert문 작성
+insert into board_member 
+values('aa1100',standard_hash('123456','SHA512'),'김천수','주먹감자');
+
+select * from board_member where id = 'aa1100';
+
+-- 전체 게시글 조회
+-- 글번호, 제목, 작성자ID, 작성자 닉네임, 조회수, 작성일, 글내용
+select b.bno, b.title, b.id, bm.nickname, b.bcount, b.write_date, b.content
+from board b inner join board_member bm on b.id = bm.id;
+-- 글번호, 제목, 작성자ID, 작성자 닉네임, 조회수, 작성일, 글내용, 좋아요, 싫어요
+-- 글번호별 좋아요 개수 조회
+select bno, count(*) as blike_count
+from board_content_like
+group by bno;
+-- 글번호별 싫어요 개수 조회
+select bno, count(*) as bhate_count
+from board_content_hate
+group by bno;
+
+with bcl_count as (
+    select bno, count(*) as blike_count 
+from board_content_like group by bno
+), bch_count as (
+    select bno, count(*) as bhate_count
+from board_content_hate group by bno
+)
+select b.bno, b.title, b.id, bm.nickname, b.bcount, 
+    b.write_date, b.content, 
+    nvl(bcl.blike_count,0) as blike, nvl(bch.bhate_count,0) as bhate
+from board b inner join board_member bm on b.id = bm.id
+left outer join (select * from bcl_count) bcl on b.bno = bcl.bno
+left outer join (select * from bch_count) bch on b.bno = bch.bno;
+
+
+
+
+
 
