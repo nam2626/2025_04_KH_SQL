@@ -277,3 +277,10 @@ select * from
     (select row_number() over(order by bv.bno desc) as rw, bv.* 
     from board_view bv)
 where ceil(rw / 30) = 2;
+
+--전체 댓글 조회
+--	댓글 번호, 글번호, 댓글 내용, 댓글 작성일, 
+--	댓글 좋아요 개수, 댓글 싫어요 개수, 댓글 작성 아이디,댓글 작성 닉네임
+
+-- 게시글을 작성한 회원들의 게시글 개수,
+-- 좋아요를 받은 총 횟수, 싫어요를 받은 총 횟수를 조회
