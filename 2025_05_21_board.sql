@@ -54,14 +54,11 @@ ALTER TABLE board_member ADD CONSTRAINT PK_BOARD_MEMBER PRIMARY KEY (
 );
 
 ALTER TABLE board_comment ADD CONSTRAINT PK_BOARD_COMMENT PRIMARY KEY (
-	cno,
-	id,
-	bno
+	cno
 );
 
 ALTER TABLE board ADD CONSTRAINT PK_BOARD PRIMARY KEY (
-	bno,
-	id
+	bno
 );
 
 ALTER TABLE board_content_like ADD CONSTRAINT PK_BOARD_CONTENT_LIKE PRIMARY KEY (
@@ -84,77 +81,77 @@ ALTER TABLE board_comment_hate ADD CONSTRAINT PK_BOARD_COMMENT_HATE PRIMARY KEY 
 	cno
 );
 
-ALTER TABLE board_comment ADD CONSTRAINT FK_board_member_TO_board_comment_1 FOREIGN KEY (
+ALTER TABLE board_comment ADD CONSTRAINT FK_BC_ID FOREIGN KEY (
 	id
 )
 REFERENCES board_member (
 	id
 );
 
-ALTER TABLE board_comment ADD CONSTRAINT FK_board_TO_board_comment_1 FOREIGN KEY (
+ALTER TABLE board_comment ADD CONSTRAINT FK_BC_BNO FOREIGN KEY (
 	bno
 )
 REFERENCES board (
 	bno
 );
 
-ALTER TABLE board ADD CONSTRAINT FK_board_member_TO_board_1 FOREIGN KEY (
+ALTER TABLE board ADD CONSTRAINT FK_B_ID FOREIGN KEY (
 	id
 )
 REFERENCES board_member (
 	id
 );
 
-ALTER TABLE board_content_like ADD CONSTRAINT FK_board_member_TO_board_content_like_1 FOREIGN KEY (
+ALTER TABLE board_content_like ADD CONSTRAINT FK_BCL_ID FOREIGN KEY (
 	id
 )
 REFERENCES board_member (
 	id
 );
 
-ALTER TABLE board_content_like ADD CONSTRAINT FK_board_TO_board_content_like_1 FOREIGN KEY (
+ALTER TABLE board_content_like ADD CONSTRAINT FK_BCL_BNO FOREIGN KEY (
 	bno
 )
 REFERENCES board (
 	bno
 );
 
-ALTER TABLE board_content_hate ADD CONSTRAINT FK_board_member_TO_board_content_hate_1 FOREIGN KEY (
+ALTER TABLE board_content_hate ADD CONSTRAINT FK_BCH_ID FOREIGN KEY (
 	id
 )
 REFERENCES board_member (
 	id
 );
 
-ALTER TABLE board_content_hate ADD CONSTRAINT FK_board_TO_board_content_hate_1 FOREIGN KEY (
+ALTER TABLE board_content_hate ADD CONSTRAINT FK_BCH_BNO FOREIGN KEY (
 	bno
 )
 REFERENCES board (
 	bno
 );
 
-ALTER TABLE board_comment_like ADD CONSTRAINT FK_board_member_TO_board_comment_like_1 FOREIGN KEY (
+ALTER TABLE board_comment_like ADD CONSTRAINT FK_BCML_ID FOREIGN KEY (
 	id
 )
 REFERENCES board_member (
 	id
 );
 
-ALTER TABLE board_comment_like ADD CONSTRAINT FK_board_comment_TO_board_comment_like_1 FOREIGN KEY (
+ALTER TABLE board_comment_like ADD CONSTRAINT FK_BCML_CNO FOREIGN KEY (
 	cno
 )
 REFERENCES board_comment (
 	cno
 );
 
-ALTER TABLE board_comment_hate ADD CONSTRAINT FK_board_member_TO_board_comment_hate_1 FOREIGN KEY (
+ALTER TABLE board_comment_hate ADD CONSTRAINT FK_BCMH_ID FOREIGN KEY (
 	id
 )
 REFERENCES board_member (
 	id
 );
 
-ALTER TABLE board_comment_hate ADD CONSTRAINT FK_board_comment_TO_board_comment_hate_1 FOREIGN KEY (
+ALTER TABLE board_comment_hate ADD CONSTRAINT FK_BCMH_CNO FOREIGN KEY (
 	cno
 )
 REFERENCES board_comment (
