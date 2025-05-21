@@ -211,6 +211,22 @@ select b.bno, b.title, b.id, bm.nickname, b.bcount, b.write_date, b.content,
 from board b inner join board_member bm on b.id = bm.id
 order by b.bno;
 
+-- 위에 만든 전체 게시글 조회하는 SQL문을 뷰로 생성 -> BOARD_VIEW
+create or replace view board_view
+as
+with bcl_count as (
+    select bno, count(*) as blike_count 
+    from board_content_like group by bno
+), bch_count as (
+    select bno, count(*) as bhate_count
+    from board_content_hate group by bno
+)
+select b.bno, b.title, b.id, bm.nickname, b.bcount, 
+    b.write_date, b.content, 
+    nvl(bcl.blike_count,0) as blike, nvl(bch.bhate_count,0) as bhate
+from board b inner join board_member bm on b.id = bm.id
+left outer join bcl_count bcl on b.bno = bcl.bno
+left outer join bch_count bch on b.bno = bch.bno;
 
-
+select * from board_view;
 
