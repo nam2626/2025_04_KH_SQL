@@ -230,3 +230,50 @@ left outer join bch_count bch on b.bno = bch.bno;
 
 select * from board_view;
 
+-- 게시글별로 댓글 개수를 조회
+select bc.bno, count(*) as ccount
+from board_comment bc group by bc.bno;
+
+-- 게시글 전체 조회에다가 댓글 개수도 추가
+create or replace view board_view
+as
+with bcl_count as (
+    select bno, count(*) as blike_count 
+    from board_content_like group by bno
+), bch_count as (
+    select bno, count(*) as bhate_count
+    from board_content_hate group by bno
+), bc_count as (
+    select bc.bno, count(*) as ccount
+    from board_comment bc group by bc.bno
+)
+select b.bno, b.title, b.id, bm.nickname, b.bcount, 
+    b.write_date, b.content, 
+    nvl(bcl.blike_count,0) as blike, nvl(bch.bhate_count,0) as bhate,
+    nvl(bc.ccount,0) as ccount
+from board b inner join board_member bm on b.id = bm.id
+left outer join bcl_count bcl on b.bno = bcl.bno
+left outer join bch_count bch on b.bno = bch.bno
+left outer join bc_count bc on b.bno = bc.bno;
+
+select * from board_view;
+
+-- 게시글 조회시 맨처음부터 30건만 조회, board_view 이용
+-- 1. 최근순으로 정렬 
+-- 2. 행번호 추가 - ROW_NUMBER
+-- 3. 행번호 30번까지만 조회
+select * from
+    (select row_number() over(order by bv.bno desc) as rw, bv.* 
+    from board_view bv)
+where rw between 1 and 30;
+
+-- 31번부터 60번까지만 조회
+select * from
+    (select row_number() over(order by bv.bno desc) as rw, bv.* 
+    from board_view bv)
+where rw between 31 and 60;
+
+select * from
+    (select row_number() over(order by bv.bno desc) as rw, bv.* 
+    from board_view bv)
+where ceil(rw / 30) = 2;
